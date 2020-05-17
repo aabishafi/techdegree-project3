@@ -137,12 +137,6 @@ payment.addEventListener('change', () => {
 })
 
 //form validation
-//Global variables for Form Validation. 
-
-
-
-
-
 
 
 //name field can not be blank
@@ -261,6 +255,7 @@ const activitiesValidation = event => {
     }
     for (let i = 0; i < activitiesInput.length; i++) {
         if (activitiesInput[i].checked) {
+
             activities.style.borderColor = 'none';
             activitiesError.style.display = 'none';
             activitiesError.remove();
