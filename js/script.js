@@ -25,8 +25,7 @@ const defaultOption = document.createElement('option');
 defaultOption.textContent = 'Please select a T-shirt theme';
 color.appendChild(defaultOption);
 defaultOption.setAttribute("selected", true);
-const firstColor = color[0];
-color.insertBefore(defaultOption, firstColor);
+
 /*adding event listener that will show the right options when 'js puns' is selected and when 'heart js' selected*/
 design.addEventListener('change', (e) => {
     if (e.target.value === 'js puns') {
@@ -240,7 +239,9 @@ const activities = document.querySelector(".activities");
 const activitiesError = document.createElement('span');
 activitiesError.className = 'error';
 activitiesError.textContent = 'please select at least  one activity';
+activitiesError.style.display = 'none';
 activities.appendChild(activitiesError);
+
 const activitiesValidation = event => {
 
     for (let i = 0; i < activitiesInput.length; i++) {
