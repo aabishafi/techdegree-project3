@@ -335,5 +335,9 @@ form.addEventListener("submit", (event) => {
     emailValidation(event);
     activitiesValidation(event);
     creditCardValidation(event);
+    //prevent default fixed after project review
+    if (!activitiesValidation()) {
+        e.preventDefault();
+    }
 
 });
