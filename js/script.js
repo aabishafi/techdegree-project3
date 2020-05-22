@@ -250,13 +250,13 @@ const activitiesValidation = event => {
             activities.parentNode.insertBefore(activitiesError, activities.nextElementSibling);
             activitiesError.style.display = '';
             activities.style.borderColor = 'red';
-
+            event.preventDefault();
 
         }
     }
     for (let i = 0; i < activitiesInput.length; i++) {
         if (activitiesInput[i].checked) {
-
+            event.preventDefault();
             activities.style.borderColor = 'none';
             activitiesError.style.display = 'none';
             activitiesError.remove();
@@ -335,9 +335,6 @@ form.addEventListener("submit", (event) => {
     emailValidation(event);
     activitiesValidation(event);
     creditCardValidation(event);
-    //prevent default fixed after project review
-    if (!activitiesValidation()) {
-        e.preventDefault();
-    }
+
 
 });
