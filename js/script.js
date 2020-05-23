@@ -256,7 +256,6 @@ const activitiesValidation = event => {
     }
     for (let i = 0; i < activitiesInput.length; i++) {
         if (activitiesInput[i].checked) {
-            event.preventDefault();
             activities.style.borderColor = 'none';
             activitiesError.style.display = 'none';
             activitiesError.remove();
