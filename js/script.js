@@ -160,7 +160,7 @@ const nameValidation = event => {
         event.preventDefault();
 
         //display another error message when input name is not blank but it does not match requirements
-    } else if (!(/^[a-z]+( ||-)[a-z]+(( ||-)[a-z]+( ||-)[a-z]+)?$/.test(name.value))) {
+    } else if (!/^[a-zA-Z ]{2,30}$/.test(name.value)) {
         errorName.style.display = 'none';
         errorName.remove();
         name.parentNode.insertBefore(validName, name.nextElementSibling);
