@@ -158,6 +158,7 @@ const nameValidation = event => {
         name.style.borderColor = 'red';
         validName.remove();
         event.preventDefault();
+        return false;
 
         //display another error message when input name is not blank but it does not match requirements
     } else if (!/^[a-zA-Z ]{2,30}$/.test(name.value)) {
@@ -167,7 +168,7 @@ const nameValidation = event => {
         validName.style.display = '';
         name.style.borderColor = 'red';
         event.preventDefault();
-
+        return false;
         //remove all error messages when input name matches all criteria
     } else {
         name.style.borderColor = '';
@@ -175,6 +176,7 @@ const nameValidation = event => {
         validName.style.display = 'none';
         errorName.remove();
         validName.remove();
+        return true;
     }
 };
 //event listener for name 
@@ -205,7 +207,7 @@ const emailValidation = event => {
         email.style.borderColor = 'red';
         validEmail.remove();
         event.preventDefault();
-
+        return false;
         //display another error message when email input is not blank but input is not a valid email address
     } else if (!(/^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value))) {
         errorEmail.style.display = 'none';
@@ -214,7 +216,7 @@ const emailValidation = event => {
         validEmail.style.display = '';
         email.style.borderColor = 'red';
         event.preventDefault();
-
+        return false;
         //remove all error messages when input is the the format of a valid email address
     } else {
         email.style.borderColor = 'white';
@@ -222,6 +224,7 @@ const emailValidation = event => {
         validEmail.style.display = 'none';
         errorEmail.remove();
         validEmail.remove();
+        return true;
     }
 };
 //event listener for email
@@ -251,7 +254,7 @@ const activitiesValidation = event => {
             activitiesError.style.display = '';
             activities.style.borderColor = 'red';
             event.preventDefault();
-
+            return false;
         }
     }
     for (let i = 0; i < activitiesInput.length; i++) {
@@ -259,7 +262,7 @@ const activitiesValidation = event => {
             activities.style.borderColor = 'none';
             activitiesError.style.display = 'none';
             activitiesError.remove();
-
+            return true;
         }
     }
 };
@@ -294,9 +297,11 @@ const creditCardValidation = event => {
             creditError.style.display = '';
             credit.style.borderColor = 'red';
             event.preventDefault();
+            return false;
         } else {
             credit.style.borderColor = '';
             creditError.style.display = 'none';
+            return true;
         }
 
 
@@ -306,9 +311,11 @@ const creditCardValidation = event => {
             zipError.style.display = '';
             zip.style.borderColor = 'red';
             event.preventDefault();
+            return false;
         } else {
             zipCode.style.borderColor = '';
             zipError.style.display = 'none';
+            return true;
         }
         //The CVV should only accept a number that is exactly 3 digits long
         //error message displayed when cvv code field left blank or is not in the format of a cvv code 
@@ -317,9 +324,11 @@ const creditCardValidation = event => {
             cvvError.style.display = '';
             cvv.style.borderColor = 'red';
             event.preventDefault();
+            return false;
         } else {
             cvv.style.borderColor = '';
             cvvError.style.display = 'none';
+            return true;
         }
     }
 };
