@@ -266,6 +266,7 @@ const activitiesValidation = event => {
         }
     }
 };
+//event listener for activities
 activities.addEventListener("input", (event) => {
     activitiesValidation(event);
 });
@@ -295,21 +296,22 @@ cvv.appendChild(cvvError);
 
 //cvv validation function
 const cvvValidation = event => {
-    //The CVV should only accept a number that is exactly 3 digits long        
-    //error message displayed when cvv code field left blank or is not in the format of a cvv code
-    if (cvv.value === '' || !(/^\d{3}$/.test(cvv.value))) {
-        cvv.parentNode.insertBefore(cvvError, cvv.nextElementSibling);
-        cvvError.style.display = '';
-        cvv.style.borderColor = 'red';
-        //event.preventDefault();
-        return false;
-    } else {
-        cvv.style.borderColor = '';
-        cvvError.style.display = 'none';
+        //The CVV should only accept a number that is exactly 3 digits long        
+        //error message displayed when cvv code field left blank or is not in the format of a cvv code
+        if (cvv.value === '' || !(/^\d{3}$/.test(cvv.value))) {
+            cvv.parentNode.insertBefore(cvvError, cvv.nextElementSibling);
+            cvvError.style.display = '';
+            cvv.style.borderColor = 'red';
+            //event.preventDefault();
+            return false;
+        } else {
+            cvv.style.borderColor = '';
+            cvvError.style.display = 'none';
 
-        return true;
+            return true;
+        }
     }
-}
+    //event listener for cvv
 cvv.addEventListener("input", (event) => {
     cvvValidation(event);
 });
@@ -319,43 +321,46 @@ cvv.addEventListener("blur", (event) => {
 
 //zipcode validation function
 const zipCodeValidation = event => {
-    //error message displayed when zip code field left blank or is not in the format of a valid zip code 
-    if (zipCode.value === '' || !(/^\d{5}$/.test(zipCode.value))) {
-        zipCode.parentNode.insertBefore(zipError, zipCode.nextElementSibling);
-        zipError.style.display = '';
-        zip.style.borderColor = 'red';
-        //event.preventDefault();
-        return false;
-    } else {
-        zipCode.style.borderColor = '';
-        zipError.style.display = 'none';
+        //error message displayed when zip code field left blank or is not in the format of a valid zip code 
+        if (zipCode.value === '' || !(/^\d{5}$/.test(zipCode.value))) {
+            zipCode.parentNode.insertBefore(zipError, zipCode.nextElementSibling);
+            zipError.style.display = '';
+            zip.style.borderColor = 'red';
+            //event.preventDefault();
+            return false;
+        } else {
+            zipCode.style.borderColor = '';
+            zipError.style.display = 'none';
 
-        return true;
+            return true;
+        }
     }
-}
+    //event listener for zipcode
 zipCode.addEventListener("input", (event) => {
     zipCodeValidation(event);
 });
 zipCode.addEventListener("blur", (event) => {
     zipCodeValidation(event);
 });
+
 //creditcard validation function
 const creditCardValidation = event => {
-    //Credit Card field should only accept a number between 13 and 16 digits
-    // error message displayed when credit card number field left blank or 
-    //is not in the format of a valid credit card number
-    if (credit.value === "" || !/^[0-9]{13,16}$/.test(credit.value)) {
-        credit.parentNode.insertBefore(creditError, credit.nextElementSibling);
-        creditError.style.display = '';
-        credit.style.borderColor = 'red';
-        //event.preventDefault();
-        return false;
-    } else {
-        credit.style.borderColor = '';
-        creditError.style.display = 'none';
-        return true;
+        //Credit Card field should only accept a number between 13 and 16 digits
+        // error message displayed when credit card number field left blank or 
+        //is not in the format of a valid credit card number
+        if (credit.value === "" || !/^[0-9]{13,16}$/.test(credit.value)) {
+            credit.parentNode.insertBefore(creditError, credit.nextElementSibling);
+            creditError.style.display = '';
+            credit.style.borderColor = 'red';
+            //event.preventDefault();
+            return false;
+        } else {
+            credit.style.borderColor = '';
+            creditError.style.display = 'none';
+            return true;
+        }
     }
-}
+    //event listener for credit card functions
 credit.addEventListener("input", (event) => {
     creditCardValidation(event);
 });
