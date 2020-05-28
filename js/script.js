@@ -176,7 +176,7 @@ const nameValidation = event => {
         validName.style.display = 'none';
         errorName.remove();
         validName.remove();
-        //return true;
+        return true;
     }
 };
 //event listener for name 
@@ -224,7 +224,7 @@ const emailValidation = event => {
         validEmail.style.display = 'none';
         errorEmail.remove();
         validEmail.remove();
-        //return true;
+        return true;
     }
 };
 //event listener for email
@@ -262,7 +262,7 @@ const activitiesValidation = event => {
             activities.style.borderColor = 'none';
             activitiesError.style.display = 'none';
             activitiesError.remove();
-            //return true;
+            return true;
         }
     }
 };
@@ -291,84 +291,123 @@ const cvvError = document.createElement('span');
 cvvError.className = 'error';
 cvvError.textContent = 'please type in your 3 digit cvv number';
 cvv.appendChild(cvvError);
-const creditCardValidation = event => {
-    event.preventDefault();
-    //only validate credit card info if "credit card" is selected as the payment method
-    if (payment.value === "credit card") {
-        //Credit Card field should only accept a number between 13 and 16 digits
-        //error message displayed when credit card number field left blank or 
-        //is not in the format of a valid credit card number
-
-        if (credit.value === "" || !/^[0-9]{13,16}$/.test(credit.value)) {
-            credit.parentNode.insertBefore(creditError, credit.nextElementSibling);
-            creditError.style.display = '';
-            credit.style.borderColor = 'red';
-            //event.preventDefault();
-            //return false;
-        } else {
-            credit.style.borderColor = '';
-            creditError.style.display = 'none';
-            //return true;
-        }
 
 
-        //error message displayed when zip code field left blank or is not in the format of a valid zip code 
-        if (zipCode.value === '' || !(/^\d{5}$/.test(zipCode.value))) {
-            zipCode.parentNode.insertBefore(zipError, zipCode.nextElementSibling);
-            zipError.style.display = '';
-            zip.style.borderColor = 'red';
-            //event.preventDefault();
-            //return false;
-        } else {
-            zipCode.style.borderColor = '';
-            zipError.style.display = 'none';
-            //return true;
-        }
-        //The CVV should only accept a number that is exactly 3 digits long
-        //error message displayed when cvv code field left blank or is not in the format of a cvv code 
-        if (cvv.value === '' || !(/^\d{3}$/.test(cvv.value))) {
-            cvv.parentNode.insertBefore(cvvError, cvv.nextElementSibling);
-            cvvError.style.display = '';
-            cvv.style.borderColor = 'red';
-            //event.preventDefault();
-            //return false;
-        } else {
-            cvv.style.borderColor = '';
-            cvvError.style.display = 'none';
-            //return true;
-        }
+//cvv validation function
+const cvvValidation = event => {
+    //The CVV should only accept a number that is exactly 3 digits long        
+    //error message displayed when cvv code field left blank or is not in the format of a cvv code
+    if (cvv.value === '' || !(/^\d{3}$/.test(cvv.value))) {
+        cvv.parentNode.insertBefore(cvvError, cvv.nextElementSibling);
+        cvvError.style.display = '';
+        cvv.style.borderColor = 'red';
+        //event.preventDefault();
+        return false;
+    } else {
+        cvv.style.borderColor = '';
+        cvvError.style.display = 'none';
 
+        return true;
     }
-};
+}
+cvv.addEventListener("input", (event) => {
+    cvvValidation(event);
+});
+cvv.addEventListener("blur", (event) => {
+    cvvValidation(event);
+});
 
+//zipcode validation function
+const zipCodeValidation = event => {
+    //error message displayed when zip code field left blank or is not in the format of a valid zip code 
+    if (zipCode.value === '' || !(/^\d{5}$/.test(zipCode.value))) {
+        zipCode.parentNode.insertBefore(zipError, zipCode.nextElementSibling);
+        zipError.style.display = '';
+        zip.style.borderColor = 'red';
+        //event.preventDefault();
+        return false;
+    } else {
+        zipCode.style.borderColor = '';
+        zipError.style.display = 'none';
+
+        return true;
+    }
+}
+zipCode.addEventListener("input", (event) => {
+    zipCodeValidation(event);
+});
+zipCode.addEventListener("blur", (event) => {
+    zipCodeValidation(event);
+});
+//creditcard validation function
+const creditCardValidation = event => {
+    //Credit Card field should only accept a number between 13 and 16 digits
+    // error message displayed when credit card number field left blank or 
+    //is not in the format of a valid credit card number
+    if (credit.value === "" || !/^[0-9]{13,16}$/.test(credit.value)) {
+        credit.parentNode.insertBefore(creditError, credit.nextElementSibling);
+        creditError.style.display = '';
+        credit.style.borderColor = 'red';
+        //event.preventDefault();
+        return false;
+    } else {
+        credit.style.borderColor = '';
+        creditError.style.display = 'none';
+        return true;
+    }
+}
 credit.addEventListener("input", (event) => {
     creditCardValidation(event);
 });
 credit.addEventListener("blur", (event) => {
     creditCardValidation(event);
 });
-zipCode.addEventListener("input", (event) => {
-    creditCardValidation(event);
-});
-zipCode.addEventListener("blur", (event) => {
-    creditCardValidation(event);
-});
-cvv.addEventListener("input", (event) => {
-    creditCardValidation(event);
-});
-cvv.addEventListener("blur", (event) => {
-    creditCardValidation(event);
-});
+
 
 
 //SUBMIT FORM EVENT LISTENER
-const form = document.getElementsByTagName('form')[0];
+function validate() {
 
-form.addEventListener("submit", (event) => {
-    nameValidation(event);
-    emailValidation(event);
-    activitiesValidation(event);
-    creditCardValidation(event);
+    // call validation functions
+    nameValidation();
+    emailValidation();
+    activitiesValidation();
+    creditCardValidation();
+    zipCodeValidation();
+    cvvValidation();
 
 
-});
+    let paymentSelected = document.querySelector('#payment').value
+    if (paymentSelected == 'credit card') {
+        if (nameValidation() && emailValidation() && activitiesValidation() && creditCardValidation() && zipCodeValidation() && cvvValidation()) {
+            return true
+        } else {
+            return false
+        }
+    } else if (paymentSelected != 'credit card') {
+        if (nameValidation() && emailValidation() && activitiesValidation()) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+}
+
+
+
+
+// SUBMIT BUTTON EVENT LISTENER
+
+let submitBtn = document.querySelector('button[type="submit"]')
+
+submitBtn.addEventListener('click', (e) => {
+
+    validate();
+
+    if (validate() == false) {
+        e.preventDefault()
+    }
+
+
+})
