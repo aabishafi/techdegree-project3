@@ -133,7 +133,7 @@ payment.addEventListener('change', () => {
         bitcoin.style.display = 'none';
     }
 
-})
+});
 
 //form validation
 
@@ -157,8 +157,8 @@ const nameValidation = event => {
         errorName.style.display = '';
         name.style.borderColor = 'red';
         validName.remove();
-        event.preventDefault();
-        return false;
+        //event.preventDefault();
+        //return false;
 
         //display another error message when input name is not blank but it does not match requirements
     } else if (!/^[a-zA-Z ]{2,30}$/.test(name.value)) {
@@ -167,8 +167,8 @@ const nameValidation = event => {
         name.parentNode.insertBefore(validName, name.nextElementSibling);
         validName.style.display = '';
         name.style.borderColor = 'red';
-        event.preventDefault();
-        return false;
+        //event.preventDefault();
+        //return false;
         //remove all error messages when input name matches all criteria
     } else {
         name.style.borderColor = '';
@@ -176,7 +176,7 @@ const nameValidation = event => {
         validName.style.display = 'none';
         errorName.remove();
         validName.remove();
-        return true;
+        //return true;
     }
 };
 //event listener for name 
@@ -206,8 +206,8 @@ const emailValidation = event => {
         errorEmail.style.display = '';
         email.style.borderColor = 'red';
         validEmail.remove();
-        event.preventDefault();
-        return false;
+        //event.preventDefault();
+        //return false;
         //display another error message when email input is not blank but input is not a valid email address
     } else if (!(/^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value))) {
         errorEmail.style.display = 'none';
@@ -215,8 +215,8 @@ const emailValidation = event => {
         email.parentNode.insertBefore(validEmail, email.nextElementSibling);
         validEmail.style.display = '';
         email.style.borderColor = 'red';
-        event.preventDefault();
-        return false;
+        //event.preventDefault();
+        //return false;
         //remove all error messages when input is the the format of a valid email address
     } else {
         email.style.borderColor = 'white';
@@ -224,7 +224,7 @@ const emailValidation = event => {
         validEmail.style.display = 'none';
         errorEmail.remove();
         validEmail.remove();
-        return true;
+        //return true;
     }
 };
 //event listener for email
@@ -253,8 +253,8 @@ const activitiesValidation = event => {
             activities.parentNode.insertBefore(activitiesError, activities.nextElementSibling);
             activitiesError.style.display = '';
             activities.style.borderColor = 'red';
-            event.preventDefault();
-            return false;
+            //event.preventDefault();
+            //return false;
         }
     }
     for (let i = 0; i < activitiesInput.length; i++) {
@@ -262,10 +262,16 @@ const activitiesValidation = event => {
             activities.style.borderColor = 'none';
             activitiesError.style.display = 'none';
             activitiesError.remove();
-            return true;
+            //return true;
         }
     }
 };
+activities.addEventListener("input", (event) => {
+    activitiesValidation(event);
+});
+activities.addEventListener("blur", (event) => {
+    activitiesValidation(event);
+});
 
 //global variables for credit card
 const credit = document.getElementById("cc-num"); //grab credit card from form
@@ -286,6 +292,7 @@ cvvError.className = 'error';
 cvvError.textContent = 'please type in your 3 digit cvv number';
 cvv.appendChild(cvvError);
 const creditCardValidation = event => {
+    event.preventDefault();
     //only validate credit card info if "credit card" is selected as the payment method
     if (payment.value === "credit card") {
         //Credit Card field should only accept a number between 13 and 16 digits
@@ -296,12 +303,12 @@ const creditCardValidation = event => {
             credit.parentNode.insertBefore(creditError, credit.nextElementSibling);
             creditError.style.display = '';
             credit.style.borderColor = 'red';
-            event.preventDefault();
-            return false;
+            //event.preventDefault();
+            //return false;
         } else {
             credit.style.borderColor = '';
             creditError.style.display = 'none';
-            return true;
+            //return true;
         }
 
 
@@ -310,12 +317,12 @@ const creditCardValidation = event => {
             zipCode.parentNode.insertBefore(zipError, zipCode.nextElementSibling);
             zipError.style.display = '';
             zip.style.borderColor = 'red';
-            event.preventDefault();
-            return false;
+            //event.preventDefault();
+            //return false;
         } else {
             zipCode.style.borderColor = '';
             zipError.style.display = 'none';
-            return true;
+            //return true;
         }
         //The CVV should only accept a number that is exactly 3 digits long
         //error message displayed when cvv code field left blank or is not in the format of a cvv code 
@@ -323,16 +330,35 @@ const creditCardValidation = event => {
             cvv.parentNode.insertBefore(cvvError, cvv.nextElementSibling);
             cvvError.style.display = '';
             cvv.style.borderColor = 'red';
-            event.preventDefault();
-            return false;
+            //event.preventDefault();
+            //return false;
         } else {
             cvv.style.borderColor = '';
             cvvError.style.display = 'none';
-            return true;
+            //return true;
         }
+
     }
 };
 
+credit.addEventListener("input", (event) => {
+    creditCardValidation(event);
+});
+credit.addEventListener("blur", (event) => {
+    creditCardValidation(event);
+});
+zipCode.addEventListener("input", (event) => {
+    creditCardValidation(event);
+});
+zipCode.addEventListener("blur", (event) => {
+    creditCardValidation(event);
+});
+cvv.addEventListener("input", (event) => {
+    creditCardValidation(event);
+});
+cvv.addEventListener("blur", (event) => {
+    creditCardValidation(event);
+});
 
 
 //SUBMIT FORM EVENT LISTENER
